@@ -25,7 +25,7 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 COPY conf/sshd.conf /etc/supervisor/conf.d/sshd.conf
 
 RUN echo 'root:ContaineR' | chpasswd
-
+EXPOSE 22
 # -------------------------------C9-----------------------------------------------
 RUN apt-get update &&\
     apt-get install -y build-essential g++ curl libssl-dev apache2-utils git libxml2-dev sshfs
@@ -43,11 +43,7 @@ RUN apt-get update && apt-get install software-properties-common -y && add-apt-r
     echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections && \
     apt-get install oracle-java8-installer -y && \
     rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
-#------------------------------------Juju----------------------------------------
-RUN apt-get update && apt-get install software-properties-common -y && add-apt-repository ppa:juju/stable -y && apt-get update && \
-    apt-get install juju-quickstart -y && \
-    rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
-#------------------------------------ansible-------------------------------------
+#------------------------------------Ansible-------------------------------------
 RUN apt-get update && apt-get install software-properties-common -y && apt-add-repository ppa:ansible/ansible -y && apt-get update && \
     apt-get install ansible -y && \
     rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
@@ -55,11 +51,4 @@ RUN apt-get update && apt-get install software-properties-common -y && apt-add-r
 RUN wget -O- -q http://s3tools.org/repo/deb-all/stable/s3tools.key | sudo apt-key add - && \
     wget -O/etc/apt/sources.list.d/s3tools.list http://s3tools.org/repo/deb-all/stable/s3tools.list && \
     apt-get update && apt-get -y install s3cmd && \
-    rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
-EXPOSE 6080
-# -----------------------------Dev Tools------------------------------------------
-RUN apt-get update && apt-get -y install lua5.2 golang jython git libmysqlclient-dev && \
-    apt-get install -y python-pip python-dev bpython && \
-    pip install Flask boto awscli redis MySQL-python && \
-    pip install rq rq-dashboard rq-scheduler gunicorn && \
     rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
