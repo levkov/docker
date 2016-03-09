@@ -25,6 +25,18 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 COPY conf/sshd.conf /etc/supervisor/conf.d/sshd.conf
 
 RUN echo 'root:ContaineR' | chpasswd
+
+# -------------------------------C9-----------------------------------------------
+RUN apt-get update &&\
+    apt-get install -y build-essential g++ curl libssl-dev apache2-utils git libxml2-dev sshfs
+RUN curl -sL https://deb.nodesource.com/setup | bash -
+RUN apt-get install -y nodejs
+RUN git clone https://github.com/c9/core.git /cloud9
+WORKDIR /cloud9
+RUN scripts/install-sdk.sh
+RUN sed -i -e 's_127.0.0.1_0.0.0.0_g' /cloud9/configs/standalone.js
+ADD conf/cloud9.conf /etc/supervisor/conf.d/
+
 # -----------------------------------Java--------------------------------------
 RUN apt-get update && apt-get install software-properties-common -y && add-apt-repository ppa:webupd8team/java -y &&  apt-get update && \
     echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
