@@ -36,7 +36,7 @@ WORKDIR /cloud9
 RUN scripts/install-sdk.sh
 RUN sed -i -e 's_127.0.0.1_0.0.0.0_g' /cloud9/configs/standalone.js
 ADD conf/cloud9.conf /etc/supervisor/conf.d/
-
+EXPOSE 80
 # -----------------------------------Java--------------------------------------
 RUN apt-get update && apt-get install software-properties-common -y && add-apt-repository ppa:webupd8team/java -y &&  apt-get update && \
     echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
