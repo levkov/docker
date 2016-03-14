@@ -1,0 +1,6 @@
+deb http://ppa.launchpad.net/wagungs/kali-linux1/ubuntu raring main     
+deb-src http://ppa.launchpad.net/wagungs/kali-linux1/ubuntu raring main
+deb http://ppa.launchpad.net/wagungs/kali-linux2/ubuntu raring main 
+deb-src http://ppa.launchpad.net/wagungs/kali-linux2/ubuntu raring main 
+deb http://ppa.launchpad.net/wagungs/kali-linux/ubuntu raring main 
+deb-src http://ppa.launchpad.net/wagungs/kali-linux/ubuntu raring main
