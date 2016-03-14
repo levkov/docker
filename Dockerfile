@@ -56,4 +56,4 @@ RUN wget -O- -q http://s3tools.org/repo/deb-all/stable/s3tools.key | sudo apt-ke
 COPY    conf/kali-tools.list /etc/apt/sources.list.d/kali-tools.list
 COPY conf/key.pgp /tmp/key.pgp
 RUN apt-key add /tmp/key.pgp &&\
-    apt-get update && \
+    apt-get update
