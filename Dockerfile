@@ -53,7 +53,7 @@ RUN wget -O- -q http://s3tools.org/repo/deb-all/stable/s3tools.key | sudo apt-ke
     apt-get update && apt-get -y install s3cmd && \
     rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
 #---------------------------------------------------------------------------------
-COPY    conf/kali-tools.list /etc/apt/sources.list.d/kali-tools.list
+COPY conf/kali-tools.list /etc/apt/sources.list.d/kali-tools.list
 COPY conf/key.pgp /tmp/key.pgp
 RUN apt-key add /tmp/key.pgp &&\
     apt-get update
