@@ -57,6 +57,9 @@ COPY conf/kali-tools.list /etc/apt/sources.list.d/kali-tools.list
 COPY conf/key.pgp /tmp/key.pgp
 RUN apt-key add /tmp/key.pgp
 RUN apt-get update
+#---------------------------------------------------------------------------------------
+RUN apt-get update && apt-get -y install redis-server nginx
+RUN pip install requests==2.5.3 Flask gunicorn redis rq rq-dashboard rq-scheduler
 #---------------------------------Dev OpenStack------------------------------------------
 RUN apt-get update && apt-get -y install python-pip python-dev
 RUN pip install python-novaclient
