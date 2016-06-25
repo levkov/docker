@@ -94,3 +94,6 @@ EXPOSE 9000 5052
 #-------------------------Influxdb---------------------------------------------------------
 RUN wget https://dl.influxdata.com/influxdb/releases/influxdb_0.13.0_amd64.deb
 RUN dpkg -i influxdb_0.13.0_amd64.deb
+COPY conf/dfg.sh /usr/local/bin/dfg.sh
+RUN  chmod +x /usr/local/bin/dfg.sh
+EXPOSE 8083 8086
