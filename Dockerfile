@@ -97,3 +97,11 @@ RUN dpkg -i influxdb_0.13.0_amd64.deb
 COPY conf/dfg.sh /usr/local/bin/dfg.sh
 RUN  chmod +x /usr/local/bin/dfg.sh
 EXPOSE 8083 8086
+#--------------------------------Cloudera-------------------------------------------
+RUN wget http://archive.cloudera.com/director/ubuntu/trusty/amd64/director/cloudera-director.list -O /etc/apt/sources.list.d/cloudera-director.list && \
+    curl -s http://archive.cloudera.com/director/ubuntu/trusty/amd64/director/archive.key | sudo apt-key add - && \
+    apt-get update -y && \
+    apt-get install cloudera-director-client -y && \
+    cp /usr/lib/cloudera-director/client/aws.reference.conf /root/aws.conf && \
+#--------------------------------------------------------------------------
+    rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
