@@ -87,4 +87,3 @@ RUN cd /opt && git clone https://github.com/yahoo/kafka-manager.git
 RUN cd /opt/kafka-manager && echo 'scalacOptions ++= Seq("-Xmax-classfile-name", "200")' >> build.sbt && sbt clean dist
 RUN cd /opt/kafka-manager && \
     sbt debian:packageBin
-RUN dpkg -i ../kafka-manager_1.3.0.8_all.deb
