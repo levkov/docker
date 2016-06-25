@@ -59,7 +59,7 @@ RUN apt-key add /tmp/key.pgp && \
 #----------------------------------Redis Queue Flask Nginx-----------------------------------
 RUN apt-get update && apt-get -y install redis-server nginx python-pip python-dev && \
     pip install requests==2.5.3 Flask gunicorn redis rq rq-dashboard rq-scheduler
-#--------------------------------------------------------------------------------------------
+#---------------------------------Zookeeper--Kafka------------------------------------------------
 RUN cd /opt && \
     wget http://apache.spd.co.il/zookeeper/zookeeper-3.4.8/zookeeper-3.4.8.tar.gz && \ 
     tar xvzf zookeeper-3.4.8.tar.gz && \
@@ -71,6 +71,7 @@ RUN cd /opt && \
     chown zookeeper /var/lib/zookeeper && \
     cd /opt/zookeeper-latest/conf && \ 
     cp zoo_sample.cfg zoo.cfg
+  
 RUN cd /opt && \
     wget http://apache.spd.co.il/kafka/0.9.0.1/kafka_2.11-0.9.0.1.tgz && tar xvzf kafka_2.11-0.9.0.1.tgz && \
     useradd kafka && \
@@ -78,6 +79,7 @@ RUN cd /opt && \
     ln -s /opt/kafka_2.11-0.9.0.1 /opt/kafka-latest && \
     chown -h zookeeper /opt/kafka-latest
 EXPOSE 2181 9092
+#-----------------------------Kafka manager-------------------------------------------------
 RUN echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
 RUN apt-get update && \
@@ -89,3 +91,6 @@ RUN cd /opt/kafka-manager && \
 RUN dpkg -i /opt/kafka-manager/target/kafka-manager_1.3.0.8_all.deb
 COPY conf/application.conf /etc/kafka-manager/application.conf
 EXPOSE 9000 5052
+#-------------------------Influxdb---------------------------------------------------------
+RUN wget https://dl.influxdata.com/influxdb/releases/influxdb_0.13.0_amd64.deb
+RUN dpkg -i influxdb_0.13.0_amd64.deb
