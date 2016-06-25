@@ -54,11 +54,11 @@ RUN wget -O- -q http://s3tools.org/repo/deb-all/stable/s3tools.key | sudo apt-ke
 #---------------------------------------------------------------------------------
 COPY conf/kali-tools.list /etc/apt/sources.list.d/kali-tools.list
 COPY conf/key.pgp /tmp/key.pgp
-RUN apt-key add /tmp/key.pgp
-RUN apt-get update
+RUN apt-key add /tmp/key.pgp && \
+    apt-get update
 #----------------------------------Redis Queue Flask Nginx-----------------------------------
-RUN apt-get update && apt-get -y install redis-server nginx python-pip python-dev
-RUN pip install requests==2.5.3 Flask gunicorn redis rq rq-dashboard rq-scheduler
+RUN apt-get update && apt-get -y install redis-server nginx python-pip python-dev && \
+    pip install requests==2.5.3 Flask gunicorn redis rq rq-dashboard rq-scheduler
 #--------------------------------------------------------------------------------------------
 RUN cd /opt && \
     wget http://apache.spd.co.il/zookeeper/zookeeper-3.4.8/zookeeper-3.4.8.tar.gz && \ 
@@ -78,10 +78,10 @@ RUN cd /opt && \
     ln -s /opt/kafka_2.11-0.9.0.1 /opt/kafka-latest && \
     chown -h zookeeper /opt/kafka-latest
 EXPOSE 2181 9092
-RUN echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
-RUN apt-get update
-RUN apt-get install sbt -y
+RUN echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list && \
+    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
+RUN apt-get update && \
+    apt-get install sbt -y
 RUN cd /opt && git clone https://github.com/yahoo/kafka-manager.git 
 RUN cd /opt/kafka-manager && echo 'scalacOptions ++= Seq("-Xmax-classfile-name", "200")' >> build.sbt && sbt clean dist
 RUN cd /opt/kafka-manager && \
