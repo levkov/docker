@@ -28,8 +28,8 @@ RUN echo 'root:ContaineR' | chpasswd
 EXPOSE 22
 # -------------------------------C9-----------------------------------------------
 RUN apt-get update &&\
-    apt-get install -y build-essential g++ curl libssl-dev apache2-utils git libxml2-dev sshfs
-RUN curl -sL https://deb.nodesource.com/setup | bash -
+    apt-get install -y build-essential g++ curl libssl-dev apache2-utils git libxml2-dev sshfs &&\
+    curl -sL https://deb.nodesource.com/setup | bash -
 RUN apt-get install -y nodejs
 RUN git clone https://github.com/c9/core.git /cloud9
 WORKDIR /cloud9
@@ -87,3 +87,4 @@ RUN cd /opt && git clone https://github.com/yahoo/kafka-manager.git
 RUN cd /opt/kafka-manager && echo 'scalacOptions ++= Seq("-Xmax-classfile-name", "200")' >> build.sbt && sbt clean dist
 RUN cd /opt/kafka-manager && \
     sbt debian:packageBin
+RUN dpkg -i /opt/kafka-manager/target/kafka-manager_1.3.0.8_all.deb
