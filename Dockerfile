@@ -55,7 +55,8 @@ RUN wget -O- -q http://s3tools.org/repo/deb-all/stable/s3tools.key | sudo apt-ke
 COPY conf/kali-tools.list /etc/apt/sources.list.d/kali-tools.list
 COPY conf/key.pgp /tmp/key.pgp
 RUN apt-key add /tmp/key.pgp && \
-    apt-get update
+    apt-get update && \
+    rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*    
 #----------------------------------Redis Queue Flask Nginx-----------------------------------
 RUN apt-get update && apt-get -y install redis-server nginx python-pip python-dev && \
     pip install requests==2.5.3 Flask gunicorn redis rq rq-dashboard rq-scheduler
