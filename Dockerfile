@@ -89,7 +89,7 @@ RUN cd /opt && git clone https://github.com/yahoo/kafka-manager.git
 RUN cd /opt/kafka-manager && echo 'scalacOptions ++= Seq("-Xmax-classfile-name", "200")' >> build.sbt && sbt clean dist
 RUN cd /opt/kafka-manager && \
     sbt debian:packageBin
-RUN dpkg -i /opt/kafka-manager/target/kafka-manager_1.3.0.8_all.deb
+RUN dpkg -i /opt/kafka-manager/target/kafka-manager_*.deb
 COPY conf/application.conf /etc/kafka-manager/application.conf
 EXPOSE 9000 5052
 #-------------------------Influxdb---------------------------------------------------------
