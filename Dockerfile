@@ -92,8 +92,8 @@ RUN dpkg -i /opt/kafka-manager/target/kafka-manager_1.3.0.8_all.deb
 COPY conf/application.conf /etc/kafka-manager/application.conf
 EXPOSE 9000 5052
 #-------------------------Influxdb---------------------------------------------------------
-RUN wget https://dl.influxdata.com/influxdb/releases/influxdb_0.13.0_amd64.deb
-RUN dpkg -i influxdb_0.13.0_amd64.deb
+RUN wget https://dl.influxdata.com/influxdb/releases/influxdb_0.13.0_amd64.deb && \
+    dpkg -i influxdb_0.13.0_amd64.deb
 COPY conf/dfg.sh /usr/local/bin/dfg.sh
 RUN  chmod +x /usr/local/bin/dfg.sh
 EXPOSE 8083 8086
